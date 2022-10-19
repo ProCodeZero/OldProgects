@@ -132,9 +132,12 @@ class Romes extends Number {
 
     @Override
     public void div() {
-        result_int = romes_value1_int / romes_value2_int;
-        result_string = convert_result_to_Romes(result_int, result_int);
-
+        try {
+            result_int = romes_value1_int / romes_value2_int;
+            result_string = convert_result_to_Romes(result_int, result_int);
+        } catch (ArithmeticException e) {
+            System.out.print("Проверьте правильность ввода римских цифр. Вероятно введены и арабские и римские одновременно. ");
+        }
     }
 
     @Override
