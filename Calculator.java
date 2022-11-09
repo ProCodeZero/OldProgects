@@ -26,9 +26,11 @@ public class Calculator {
             return;
         }
         //Делим строчку по найденному арифметическому знаку
-
-
         String[] data = exp.split(regexActions[actionIndex]);
+        if (data.length != 2){
+            System.out.println("Введенное выражение должно иметь два числа и один знак действия \"1+1\"");
+            System.exit(0);
+        }
         //Определяем, находятся ли числа в одном формате (оба римские или оба арабские)
         if(converter.isRoman(data[0]) == converter.isRoman(data[1])){
             int a,b;
@@ -39,8 +41,14 @@ public class Calculator {
                 //X+V
                 //x-10
                 //v - 5
-                a = converter.romanToInt(data[0]);
-                b = converter.romanToInt(data[1]);
+                try {
+                    a = converter.romanToInt(data[0]);
+                    b = converter.romanToInt(data[1]);
+                } catch (Exception e) {
+                    System.out.println("Неверный формат чисел");
+                    System.exit(0);
+                    return;
+                }
                 if (a<=0) {
                     System.out.println("Числа должны быть в диапазоне между 1 и 10");
                     System.exit(0);
@@ -60,26 +68,33 @@ public class Calculator {
 
             }
             else{
+                try {
+                    a = Integer.parseInt(data[0]);
+                    b = Integer.parseInt(data[1]);
+                } catch (NumberFormatException e) {
+                    System.out.println("Неверный формат чисел");
+                    System.exit(0);
+                    return;
+                }
                 //если арабские, конвертируем их из строки в число
-                a = Integer.parseInt(data[0]);
-                b = Integer.parseInt(data[1]);
+
             }
-                if (a<=0) {
-                    System.out.println("Числа должны быть в диапазоне между 1 и 10");
-                    System.exit(0);
-                }
-                else if (a>10) {
-                    System.out.println("Числа должны быть в диапазоне между 1 и 10");
-                    System.exit(0);
-                }
-                else if (b<=0) {
-                    System.out.println("Числа должны быть в диапазоне между 1 и 10");
-                    System.exit(0);
-                }
-                else if (b>10) {
-                    System.out.println("Числа должны быть в диапазоне между 1 и 10");
-                    System.exit(0);
-                }
+            if (a<=0) {
+                System.out.println("Числа должны быть в диапазоне между 1 и 10");
+                System.exit(0);
+            }
+            else if (a>10) {
+                System.out.println("Числа должны быть в диапазоне между 1 и 10");
+                System.exit(0);
+            }
+            else if (b<=0) {
+                System.out.println("Числа должны быть в диапазоне между 1 и 10");
+                System.exit(0);
+            }
+            else if (b>10) {
+                System.out.println("Числа должны быть в диапазоне между 1 и 10");
+                System.exit(0);
+            }
             //выполняем с числами арифметическое действие
             int result = switch (actions[actionIndex]) {
                 case "+" -> a + b;
